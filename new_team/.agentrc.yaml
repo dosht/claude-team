@@ -1,0 +1,119 @@
+# Project-Specific Agent Configuration
+# This file tells user-level agents about THIS project's structure
+
+project:
+  name: "transgate-claude-team"
+  type: "web-application"
+  description: "Claude team project using agentic development methodology"
+  
+# Documentation paths for this project
+documentation:
+  architecture: "docs/arc42/"
+  developer-guide: "docs/developer-guide/"
+  stories: "docs/product/"
+  epics: "docs/product/"
+  prd: "docs/product/PRD.md"
+  technical-docs: "docs/"
+  
+# Testing configuration
+testing:
+  unit-tests: "src/**/*.test.ts"
+  e2e-tests: "e2e/"
+  test-command: "npm test"
+  
+# Build configuration  
+build:
+  command: "npm run build"
+  output: "dist/"
+  
+# Linting and formatting
+code-quality:
+  lint-command: "npm run lint"
+  format-command: "npm run format"
+
+# Agent-specific overrides for this project
+agent-overrides:
+  developer:
+    extra-dependencies:
+      - "docs/api-conventions.md"
+      - "docs/component-patterns.md"
+    extra-principles:
+      - "Follow React best practices for this project"
+      - "Use TypeScript strict mode"
+      
+  architect:
+    focus-override: "Microservices consistency and API design"
+    extra-dependencies:
+      - "docs/arc42/08-cross-cutting-concepts.md"
+      
+  tech-lead:
+    extra-dependencies:
+      - "docs/developer-guide/testing-strategy.md"
+      - "docs/developer-guide/code-review-checklist.md"
+
+# Story workflow configuration
+workflow:
+  story-structure:
+    id-pattern: "[A-Z]{4}-[0-9]+"  # e.g., TRAN-001
+    file-location: "docs/product/{epic-id}/{story-id}.md"
+  
+  epic-structure:
+    file-location: "docs/product/{epic-id}/README.md"
+    
+  progress-tracking:
+    epic-progress-file: "docs/product/{epic-id}/progress.md"
+    project-progress-file: "docs/product/progress.md"
+
+# MCP Servers and tools available
+tools:
+  browser-testing: "playwright-mcp"
+  database: "supabase-prod"
+  documentation-search: "context7"
+  
+# Environment configuration
+environments:
+  local:
+    url: "http://localhost:3000"
+    database: "local"
+  
+  staging:
+    url: "https://staging.example.com"
+    database: "staging"
+    
+  production:
+    url: "https://app.example.com"
+    database: "production"
+
+# Custom commands for this project
+custom-commands:
+  - name: "start-story"
+    description: "Begin implementing a story with full workflow"
+    workflow:
+      - agent: "product-owner"
+        action: "verify-story-ready"
+      - agent: "developer"
+        action: "create-implementation-plan"
+      - trigger: "human-approval"
+      - agent: "developer"
+        action: "implement-story"
+        
+  - name: "sync-docs"
+    description: "Update all documentation based on recent code changes"
+    workflow:
+      - agent: "tech-lead"
+        action: "update-developer-guide"
+      - agent: "architect"
+        action: "update-arc42"
+    parallel: true
+
+# Version control
+version-control:
+  branch-strategy: "feature-branches"
+  commit-convention: "conventional-commits"
+  
+# Notifications (optional)
+notifications:
+  on-story-complete: true
+  on-conflict: true
+  on-agent-update: true
+

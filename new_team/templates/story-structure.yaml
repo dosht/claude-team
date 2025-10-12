@@ -1,0 +1,305 @@
+# Story Structure Template
+# Consistent structure for all user stories
+
+meta:
+  template-version: "1.0.0"
+  format: "markdown"
+
+# Story File Name: {STORY-ID}-{story-title-kebab-case}.md
+# Location: docs/product/{EPIC-ID}/{STORY-ID}-{story-title}.md
+
+story-structure:
+  header:
+    story-id: "{EPIC-ID}-{NUMBER}"  # e.g., TRAN-001-05
+    title: "Story title in plain language"
+    epic: "{EPIC-ID}"
+    
+  metadata:
+    created: "YYYY-MM-DD"
+    updated: "YYYY-MM-DD"
+    status: "ready | in-progress | in-review | testing | blocked | complete"
+    assigned-to: "agent-id or human-name"
+    story-points: "number (Fibonacci: 1,2,3,5,8,13,21)"
+    priority: "high | medium | low"
+    
+  user-story:
+    format: "As a [role], I want [feature], so that [benefit]"
+    example: "As a user, I want to log in with my email, so that I can access my account"
+    
+  dependencies:
+    - story-id: "{STORY-ID}"
+      reason: "why this is a dependency"
+      status: "blocked | ready | complete"
+    # Empty array if no dependencies
+    
+  acceptance-criteria:
+    format: "EARS (Easy Approach to Requirements Syntax)"
+    patterns:
+      - "WHEN [event] THEN [system] SHALL [response]"
+      - "IF [precondition] THEN [system] SHALL [response]"
+      - "WHERE [feature is] [system] SHALL [response]"
+    criteria:
+      - "WHEN user enters valid credentials THEN system SHALL authenticate user"
+      - "IF credentials are invalid THEN system SHALL display error message"
+      - "WHERE user is authenticated [system] SHALL display user dashboard"
+    # 3-7 criteria typically
+    
+  task-breakdown:
+    - task: "Task description"
+      estimated-time: "hours or story points"
+      status: "pending | in-progress | complete"
+    # Developer creates this during planning
+    
+  implementation-plan:
+    section: "## Implementation Plan"
+    created-by: "developer agent"
+    includes:
+      - "Task breakdown with technical details"
+      - "Technology/library choices"
+      - "Architectural decisions"
+      - "Estimated effort"
+      - "Risk assessment"
+    notes: "Developer appends this section before implementation"
+    requires-approval: true
+    
+  implementation-notes:
+    section: "## Implementation Notes"
+    created-by: "developer agent"
+    includes:
+      - "What was implemented"
+      - "Key decisions made during development"
+      - "Deviations from plan (with rationale)"
+      - "Files changed"
+      - "Tests added"
+    
+  technical-review:
+    section: "## Technical Review"
+    created-by: "tech-lead agent"
+    includes:
+      - "Review status (passed | issues-found | rejected)"
+      - "Issues found (if any)"
+      - "Suggestions for improvement"
+      - "Developer guide updates needed"
+      - "Reviewer name and date"
+      
+  architecture-review:
+    section: "## Architecture Review"
+    created-by: "architect agent"
+    includes:
+      - "Review status (passed | issues-found | rejected)"
+      - "Architectural issues (if any)"
+      - "Consistency check results"
+      - "Arc42 updates needed"
+      - "Reviewer name and date"
+      
+  test-results:
+    section: "## Test Results"
+    created-by: "manual-tester agent"
+    includes:
+      - "Test status (passed | failed | blocked)"
+      - "Test plan executed"
+      - "Results per test case"
+      - "Bugs found (if any)"
+      - "Acceptance criteria validation"
+      - "Tester name and date"
+      
+  bugs-found:
+    section: "## Bugs Found"
+    created-by: "manual-tester agent"
+    format:
+      - bug-id: "unique identifier"
+        severity: "critical | high | medium | low"
+        description: "What's wrong"
+        steps-to-reproduce: "How to reproduce"
+        expected-behavior: "What should happen"
+        actual-behavior: "What actually happens"
+        environment: "where tested"
+        status: "open | fixed | wont-fix"
+        
+  completion-checklist:
+    section: "## Completion Checklist"
+    items:
+      - "[ ] All acceptance criteria met"
+      - "[ ] Implementation plan reviewed and approved"
+      - "[ ] Code implemented and tested"
+      - "[ ] Unit tests written and passing"
+      - "[ ] E2E tests written and passing"
+      - "[ ] Technical review passed"
+      - "[ ] Architecture review passed"
+      - "[ ] Manual testing passed"
+      - "[ ] Human validation complete"
+      - "[ ] Documentation updated"
+      - "[ ] No linter errors"
+      - "[ ] Ready for production"
+
+# Example Story File:
+
+example: |
+  # TRAN-001-05: User Login with Email
+  
+  **Epic:** TRAN-001 - Authentication Foundation
+  **Status:** in-progress
+  **Assigned:** developer
+  **Story Points:** 5
+  **Priority:** high
+  **Created:** 2025-10-05
+  **Updated:** 2025-10-06
+  
+  ## User Story
+  
+  As a user, I want to log in with my email and password, so that I can access my personalized account.
+  
+  ## Dependencies
+  
+  - TRAN-001-03: Database schema for users (complete)
+  - TRAN-001-04: JWT token service (complete)
+  
+  ## Acceptance Criteria
+  
+  1. WHEN user enters valid email and password THEN system SHALL authenticate user and redirect to dashboard
+  2. IF credentials are invalid THEN system SHALL display error message "Invalid email or password"
+  3. WHERE user is authenticated [system] SHALL store JWT token in httpOnly cookie
+  4. WHEN user clicks "Forgot Password" THEN system SHALL navigate to password reset page
+  5. IF account is locked THEN system SHALL display error message "Account locked. Contact support."
+  
+  ## Implementation Plan
+  
+  **Created by:** Developer | **Date:** 2025-10-06
+  
+  ### Task Breakdown
+  1. Create login API endpoint (POST /api/auth/login) - 2h
+  2. Implement authentication logic with password verification - 2h
+  3. Set up JWT token creation and cookie management - 1h
+  4. Create login form component - 2h
+  5. Add form validation - 1h
+  6. Implement error handling and display - 1h
+  7. Write unit tests - 2h
+  8. Write E2E tests - 2h
+  
+  ### Technology Choices
+  - bcrypt for password hashing
+  - jsonwebtoken for JWT
+  - httpOnly cookies for token storage
+  - React Hook Form for form handling
+  
+  ### Architectural Decisions
+  - 7-day token expiration
+  - Refresh token pattern (future story)
+  - Rate limiting on login endpoint (5 attempts per minute)
+  
+  ### Estimated Effort
+  Total: 13 hours (~5 story points)
+  
+  **Status:** Approved ✅ (2025-10-06)
+  
+  ---
+  
+  ## Implementation Notes
+  
+  **Implemented by:** Developer | **Date:** 2025-10-06
+  
+  - Created `/api/auth/login` endpoint
+  - Integrated bcrypt password verification
+  - JWT tokens set in httpOnly cookie with 7-day expiration
+  - Login form with email/password fields and validation
+  - Error handling for invalid credentials and locked accounts
+  - Rate limiting implemented using express-rate-limit
+  
+  **Files Changed:**
+  - `src/api/auth/login.ts` (created)
+  - `src/components/LoginForm.tsx` (created)
+  - `src/utils/jwt.ts` (created)
+  - `src/middleware/rateLimiter.ts` (created)
+  
+  **Tests Added:**
+  - `src/api/auth/login.test.ts` (10 unit tests)
+  - `e2e/auth/login.test.ts` (5 E2E tests)
+  
+  All tests passing ✅
+  
+  ---
+  
+  ## Technical Review
+  
+  **Reviewed by:** Tech Lead | **Date:** 2025-10-07
+  
+  **Status:** Passed ✅
+  
+  **Feedback:**
+  - Code follows project standards
+  - Proper error handling implemented
+  - Test coverage is comprehensive
+  - Rate limiting is good security practice
+  
+  **Suggestions:**
+  - Consider extracting rate limiter config to environment variables
+  - Document rate limiting in developer guide
+  
+  **Developer Guide Updates:** None required immediately
+  
+  ---
+  
+  ## Architecture Review
+  
+  **Reviewed by:** Architect | **Date:** 2025-10-07
+  
+  **Status:** Passed ✅
+  
+  **Feedback:**
+  - Architecture aligns with security best practices
+  - JWT implementation follows established patterns
+  - httpOnly cookies appropriate for token storage
+  - Rate limiting improves security posture
+  
+  **Arc42 Updates Needed:**
+  - Update Section 08 (Cross-cutting Concepts) - Security > Authentication
+  - Add ADR for rate limiting approach
+  
+  ---
+  
+  ## Test Results
+  
+  **Tested by:** Manual Tester | **Date:** 2025-10-07
+  
+  **Status:** Passed ✅
+  
+  **Test Plan Executed:**
+  1. ✅ Valid login redirects to dashboard
+  2. ✅ Invalid email shows error
+  3. ✅ Invalid password shows error
+  4. ✅ Forgot password link navigates correctly
+  5. ✅ Rate limiting blocks after 5 attempts
+  6. ✅ Accessibility: keyboard navigation works
+  7. ✅ Accessibility: screen reader announces errors
+  8. ✅ Responsive: works on mobile, tablet, desktop
+  
+  **Acceptance Criteria:**
+  - ✅ Criterion 1: Valid login works
+  - ✅ Criterion 2: Invalid credentials show error
+  - ✅ Criterion 3: JWT stored in httpOnly cookie
+  - ✅ Criterion 4: Forgot password navigation works
+  - ✅ Criterion 5: Locked account error displays
+  
+  **Environment:** localhost:3000
+  
+  **Issues Found:** None
+  
+  ---
+  
+  ## Completion Checklist
+  
+  - [x] All acceptance criteria met
+  - [x] Implementation plan reviewed and approved
+  - [x] Code implemented and tested
+  - [x] Unit tests written and passing
+  - [x] E2E tests written and passing
+  - [x] Technical review passed
+  - [x] Architecture review passed
+  - [x] Manual testing passed
+  - [x] Human validation complete
+  - [x] Documentation updated
+  - [x] No linter errors
+  - [x] Ready for production
+  
+  **Story Complete** ✅ | **Completed:** 2025-10-08
+

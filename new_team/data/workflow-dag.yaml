@@ -1,0 +1,275 @@
+# Workflow DAG (Directed Acyclic Graph)
+# Defines the complete agent collaboration workflow
+
+meta:
+  version: "1.0.0"
+  description: "Agent collaboration workflow for story implementation"
+  updated: "2025-10-05"
+
+# Node definitions - each agent in the workflow
+nodes:
+  product-owner:
+    agent-id: "product-owner"
+    role: "Creates and refines user stories"
+    outputs:
+      - "story-file"
+      - "epic-structure"
+    
+  developer:
+    agent-id: "developer"
+    role: "Implements stories with code"
+    outputs:
+      - "implementation-plan"
+      - "completed-implementation"
+      - "test-results"
+    
+  tech-lead:
+    agent-id: "tech-lead"
+    role: "Technical review and standards"
+    outputs:
+      - "technical-review"
+      - "developer-guide-updates"
+    
+  architect:
+    agent-id: "architect"
+    role: "Architectural review and documentation"
+    outputs:
+      - "architecture-review"
+      - "arc42-updates"
+    
+  manual-tester:
+    agent-id: "manual-tester"
+    role: "Manual testing and QA"
+    outputs:
+      - "test-results"
+      - "bug-reports"
+    
+  react-ui-designer:
+    agent-id: "react-ui-designer"
+    role: "UI/UX design and components"
+    outputs:
+      - "react-components"
+      - "ui-documentation"
+
+# Edge definitions - how agents hand off to each other
+edges:
+  # Story creation to implementation
+  - from: "product-owner"
+    to: "developer"
+    data: "story-file"
+    trigger: "human-assigns-story"
+    description: "Product Owner hands story to Developer"
+    
+  # Developer creates plan, waits for approval
+  - from: "developer"
+    to: "human-approval"
+    data: "implementation-plan"
+    trigger: "auto"
+    description: "Developer submits plan for human review"
+    
+  # After approval, Developer continues
+  - from: "human-approval"
+    to: "developer"
+    data: "approved-plan"
+    trigger: "approval"
+    description: "Human approves plan, Developer proceeds"
+    
+  # Developer completes implementation, triggers parallel reviews
+  - from: "developer"
+    to: "tech-lead"
+    data: "completed-implementation"
+    trigger: "auto"
+    parallel: true
+    description: "Developer hands off to Tech Lead for technical review"
+    
+  - from: "developer"
+    to: "architect"
+    data: "completed-implementation"
+    trigger: "auto"
+    parallel: true
+    description: "Developer hands off to Architect for architecture review"
+    
+  - from: "developer"
+    to: "manual-tester"
+    data: "completed-implementation"
+    trigger: "auto"
+    parallel: true
+    description: "Developer hands off to Manual Tester for QA"
+    
+  # Review feedback loops back to Developer if issues
+  - from: "tech-lead"
+    to: "developer"
+    data: "technical-review"
+    trigger: "if-issues-found"
+    description: "Tech Lead sends issues back to Developer"
+    
+  - from: "architect"
+    to: "developer"
+    data: "architecture-review"
+    trigger: "if-issues-found"
+    description: "Architect sends issues back to Developer"
+    
+  - from: "manual-tester"
+    to: "developer"
+    data: "test-results + bug-reports"
+    trigger: "if-tests-failed"
+    description: "Manual Tester sends failures back to Developer"
+    
+  # Successful reviews trigger documentation updates
+  - from: "tech-lead"
+    to: "tech-lead"
+    data: "technical-review"
+    trigger: "if-patterns-to-document"
+    description: "Tech Lead updates developer guide with new patterns"
+    
+  - from: "architect"
+    to: "architect"
+    data: "architecture-review"
+    trigger: "if-arc42-updates-needed"
+    description: "Architect updates arc42 documentation"
+    
+  # All tests pass, ready for human validation
+  - from: "manual-tester"
+    to: "human-validation"
+    data: "test-results"
+    trigger: "if-tests-passed"
+    description: "Manual Tester confirms all tests passed"
+    
+  # Human validates and marks story done
+  - from: "human-validation"
+    to: "story-complete"
+    data: "validated"
+    trigger: "human-approval"
+    description: "Human validates feature and marks story complete"
+    
+  # Story completion updates epic progress
+  - from: "story-complete"
+    to: "update-epic-progress"
+    data: "completed-story"
+    trigger: "auto"
+    description: "Story completion triggers epic progress update"
+
+# Optional: UI design workflow
+ui-workflow:
+  - from: "product-owner"
+    to: "react-ui-designer"
+    data: "story-file"
+    trigger: "if-ui-required"
+    description: "Product Owner hands UI stories to React UI Designer"
+    
+  - from: "react-ui-designer"
+    to: "developer"
+    data: "react-components"
+    trigger: "auto"
+    description: "React UI Designer hands components to Developer for integration"
+
+# Manager meta-workflow (can be invoked at any time)
+manager-workflow:
+  - from: "human"
+    to: "manager"
+    data: "request"
+    trigger: "manual-invocation"
+    description: "Human invokes Manager for meta-operations"
+    
+  - from: "manager"
+    to: "any-agent"
+    data: "updated-agent-definition"
+    trigger: "human-approval"
+    description: "Manager creates/updates agents after human approval"
+
+# Termination conditions
+termination:
+  success:
+    condition: "All acceptance criteria met AND all reviews passed AND human validated"
+    outcome: "Story marked complete, epic progress updated"
+    
+  blocked:
+    condition: "Dependencies not met OR external blocker"
+    outcome: "Story marked blocked, escalate to Product Owner"
+    
+  rejected:
+    condition: "Fundamental issues OR requirements unclear"
+    outcome: "Story returned to Product Owner for refinement"
+
+# Loop detection
+loops:
+  developer-review-loop:
+    nodes: ["developer", "tech-lead", "developer"]
+    description: "Developer fixes issues from Tech Lead"
+    termination: "All technical issues resolved"
+    max-iterations: 5
+    
+  developer-architecture-loop:
+    nodes: ["developer", "architect", "developer"]
+    description: "Developer fixes architectural issues"
+    termination: "Architecture review passed"
+    max-iterations: 5
+    
+  developer-testing-loop:
+    nodes: ["developer", "manual-tester", "developer"]
+    description: "Developer fixes test failures"
+    termination: "All tests passing"
+    max-iterations: 10
+
+# Parallel execution groups
+parallel-groups:
+  reviews:
+    description: "Three agents review implementation simultaneously"
+    agents:
+      - "tech-lead"
+      - "architect"
+      - "manual-tester"
+    synchronization: "All must complete before proceeding"
+    failure-handling: "Any failure returns to Developer"
+
+# Workflow visualization (Mermaid format)
+visualization: |
+  graph TD
+    PO[Product Owner] -->|story| DEV[Developer]
+    DEV -->|plan| HUMAN{Human Approval}
+    HUMAN -->|approved| DEV
+    DEV -->|implementation| TL[Tech Lead]
+    DEV -->|implementation| ARCH[Architect]
+    DEV -->|implementation| TEST[Manual Tester]
+    TL -->|issues| DEV
+    ARCH -->|issues| DEV
+    TEST -->|failures| DEV
+    TL -->|patterns| TL_DOC[Update Dev Guide]
+    ARCH -->|changes| ARCH_DOC[Update Arc42]
+    TEST -->|passed| HUMAN_VAL{Human Validation}
+    HUMAN_VAL -->|approved| DONE[Story Complete]
+    DONE -->|update| EPIC[Epic Progress]
+    
+    style PO fill:#ffd700
+    style DEV fill:#90ee90
+    style TL fill:#87ceeb
+    style ARCH fill:#dda0dd
+    style TEST fill:#ffb6c1
+    style DONE fill:#98fb98
+
+# Metrics and monitoring
+metrics:
+  workflow-health:
+    - "Average time per workflow phase"
+    - "Number of iterations in loops"
+    - "Review pass rate"
+    - "Human intervention frequency"
+    
+  bottlenecks:
+    - "Which agent is most often blocked"
+    - "Where do most iterations occur"
+    - "Longest phase in workflow"
+
+# Evolution notes
+evolution:
+  v1.0.0:
+    date: "2025-10-05"
+    changes: "Initial workflow definition"
+    learnings: "To be collected from real usage"
+    
+  future-improvements:
+    - "Add automated contract validation between agents"
+    - "Implement workflow analytics and reporting"
+    - "Add conditional paths for different story types"
+    - "Create shortcuts for simple stories"
+
