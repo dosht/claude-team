@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/mu/src/transgate/claude-team/test/.claude/**)",
+      "Read(//Users/mu/src/transgate/claude-team/**)",
+      "Read(//Users/mu/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

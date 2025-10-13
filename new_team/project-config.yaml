@@ -1,0 +1,110 @@
+# Project Configuration
+# This file defines project-specific paths and settings for agents
+
+meta:
+  project-name: "transgate-claude-team-test"
+  version: "1.0.0"
+  created: "2025-10-12"
+  description: "Test project for agentic organization system"
+
+paths:
+  # Documentation paths that agents will reference
+  developer-guide: "docs/developer-guide"
+  architecture: "docs/arc42"
+  product: "docs/product"
+  stories: "docs/product/stories"
+
+  # Source code paths
+  source: "src"
+  tests: "tests"
+
+  # Build and configuration
+  config: "config"
+  scripts: "scripts"
+
+project-structure:
+  # Define your project's technology stack
+  stack:
+    frontend: "react"  # or vue, angular, svelte, etc.
+    backend: "node"    # or python, go, rust, etc.
+    database: "postgresql"  # or mysql, mongodb, etc.
+    testing: "jest"    # or pytest, vitest, etc.
+
+  # Key files agents should be aware of
+  key-files:
+    - "package.json"
+    - "tsconfig.json"
+    - "README.md"
+    - "CLAUDE.md"
+
+standards:
+  # Coding standards reference
+  style-guide: "{developer-guide}/coding-standards.md"
+  architecture-decisions: "{architecture}/decisions"
+  testing-requirements: "{developer-guide}/testing-guide.md"
+
+  # Quality gates
+  quality-gates:
+    - "All tests must pass"
+    - "No linter errors"
+    - "Code coverage > 80%"
+    - "No security vulnerabilities"
+
+workflow:
+  # Define story states
+  story-states:
+    - "draft"          # Story being written
+    - "ready"          # Ready for implementation
+    - "in-progress"    # Developer working on it
+    - "implemented"    # Code complete, tests passing
+    - "review"         # Under review by Tech Lead/Architect
+    - "testing"        # Manual testing in progress
+    - "done"           # Shipped to production
+    - "blocked"        # Waiting on external dependency
+
+  # Handoff triggers
+  handoffs:
+    developer-to-reviews:
+      trigger: "All acceptance criteria met + tests passing"
+      parallel: true
+      agents:
+        - "tech-lead"
+        - "architect"
+        - "manual-tester"
+
+dependencies:
+  # External tools and services
+  required-tools:
+    - "git"
+    - "node >= 18"
+    - "npm >= 9"
+
+  optional-tools:
+    - "docker"
+    - "postgresql"
+
+# Agent-specific configurations
+agent-config:
+  developer:
+    auto-run-tests: true
+    auto-lint: true
+    update-story-file: true
+
+  tech-lead:
+    review-depth: "thorough"  # or "quick", "deep"
+    auto-suggest-improvements: true
+
+  architect:
+    enforce-patterns: true
+    document-decisions: true
+
+# Environment-specific settings
+environments:
+  development:
+    base-url: "http://localhost:3000"
+
+  staging:
+    base-url: "https://staging.example.com"
+
+  production:
+    base-url: "https://example.com"

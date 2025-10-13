@@ -1,194 +1,150 @@
+---
+command: /developer
+description: Activates the Developer agent - your full-stack implementation specialist who transforms user stories into production-ready code.
+version: 1.0.0
+---
+
 # /developer Command
 
-Activates the Developer agent - your full-stack implementation specialist.
+Activates Dev, the Developer agent - your full-stack implementation specialist who transforms user stories into working, tested, production-ready code through careful planning, implementation, and testing.
 
-## Usage
+## 🎯 CRITICAL: Subagent Invocation
 
+**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the developer subagent with the specific task.
+
+**CRITICAL INVOCATION PATTERN:**
 ```
-/developer
+Task(subagent_type: "developer", prompt: "User selected [command name/number]. User wants to: [story ID or specific details provided by user]")
 ```
 
 ## When to Use
 
-- Need to implement a specific user story or feature
-- Story has clear acceptance criteria and is ready for development
-- Require code implementation following project standards
-- Feature needs testing and iteration until production-ready
+Use this command when you need to:
+- Implement a specific user story with clear acceptance criteria
+- Create a detailed implementation plan for a story
+- Fix issues identified during review or testing
+- Run tests for an implementation
+- Update an implementation plan based on changes
 
-## What This Agent Does
+## What Happens When You Use This Command
 
-The Developer agent (Dev) transforms user stories into working, tested, production-ready code through:
+### Activation Behavior
 
-- **Planning Phase**: Analyzes story and creates detailed implementation plan
-- **Development Phase**: Implements features following established patterns
-- **QA Phase**: Writes and runs comprehensive tests
-- **Iteration Phase**: Refines until all acceptance criteria met
+When you invoke `/developer`, you will see:
 
-## Activation
+```
+💻 Dev, Full-Stack Developer activated!
 
-When you invoke `/developer`, you'll be working with Dev. The agent will:
+Available commands:
+1. implement-story - Complete story implementation workflow
+2. create-implementation-plan - Analyze story and create detailed plan
+3. fix-issues - Fix issues from review or testing
+4. run-tests - Execute all tests for implementation
+5. update-implementation-plan - Update plan based on changes
 
-1. Load your project's developer guide
-2. Load architecture documentation
-3. Ask which story to implement
-4. Begin planning or continue from an existing plan
+Which command would you like to use? (enter number or name)
+```
+
+**TIP:** You can also provide a story ID directly:
+```
+You: /developer TRAN-001-05
+
+Dev: I see you want to implement TRAN-001-05. Starting implementation workflow...
+```
+
+### Interaction Flow
+
+1. **Dev greets you** with available commands
+2. **You select a command** or provide story ID
+3. **Dev creates implementation plan** (if starting new story)
+4. **You review and approve plan** before implementation
+5. **Dev implements code** following established patterns
+6. **Dev runs tests** and iterates until all pass
+7. **Dev triggers parallel reviews** (Tech Lead, Architect, Manual Tester)
+8. **Session continues** if issues found, or ends when complete
 
 ## Available Commands
 
-- `*implement-story` - Complete story implementation workflow
-- `*create-implementation-plan` - Analyze story and create detailed plan
-- `*fix-issues` - Fix issues from review or testing
-- `*run-tests` - Execute all tests for implementation
-- `*update-implementation-plan` - Update plan based on changes
+### implement-story
 
-## Development Workflow
+Complete story implementation workflow from planning through testing.
 
-### 1. Planning Phase
+**You provide:**
+- Story ID (e.g., TRAN-001-05)
 
-```
-You: /developer
-Dev: Which story would you like me to implement?
-You: TRAN-001-05
-Dev: Let me analyze the story and create an implementation plan...
+**Dev delivers:**
+1. Implementation plan (requires approval)
+2. Complete implementation following plan
+3. Comprehensive tests (unit + E2E)
+4. Updated story file with status
+5. Triggers parallel reviews
 
-     [Creates detailed plan with]:
-     - Task breakdown
-     - Technology choices
-     - Architectural decisions
-     - Estimated effort
-     
-     [Appends plan to story file]
-     
-     Please review the plan. Should I proceed? (yes/refine/no)
-```
+**Workflow:**
+- Plan → Approve → Implement → Test → Review → Iterate if needed
 
-### 2. Development Phase
+### create-implementation-plan
 
-```
-You: yes
-Dev: Starting implementation...
-     
-     [Implements following]:
-     - Project coding standards
-     - Established patterns
-     - Technology stack
-     - Comprehensive error handling
-     
-     [Updates plan if scope changes]
-```
+Analyze story and create detailed implementation plan without executing.
 
-### 3. QA Phase
+**You provide:**
+- Story ID
 
-```
-Dev: Implementation complete. Running tests...
-     
-     [Writes and runs]:
-     - Unit tests for all functions
-     - E2E tests for user interactions
-     - Accessibility checks
-     - Cross-browser testing
-     
-     Results: All tests passing ✅
-```
+**Dev delivers:**
+- Task breakdown
+- Technology choices
+- Architectural decisions
+- Effort estimate
+- Plan appended to story file
 
-### 4. Handoff to Reviews
+**IMPORTANT:** Requires human approval before proceeding to implementation.
 
-```
-Dev: Feature is production-ready!
-     
-     [Triggers parallel reviews]:
-     - Tech Lead: Technical review
-     - Architect: Architecture review
-     - Manual Tester: Feature testing
-     
-     Story file updated with implementation notes.
-```
+### fix-issues
 
-### 5. Iteration if Needed
+Fix issues identified during review or testing.
 
-```
-[If reviews find issues]
-Dev: Received feedback from Tech Lead and Architect.
-     Addressing 3 issues:
-     1. [Issue and fix approach]
-     2. [Issue and fix approach]
-     3. [Issue and fix approach]
-     
-     [Fixes and retests]
-```
+**You provide:**
+- Issue list (from Tech Lead, Architect, or Manual Tester)
+- Story ID
 
-## Scope Management
+**Dev delivers:**
+- Fixes for each issue
+- Retested implementation
+- Updated story file
 
-Developer strictly adheres to story boundaries:
+### run-tests
 
-✅ **Will Do:**
-- Implement features defined in the story
-- Write tests for implemented features
-- Follow acceptance criteria exactly
-- Document implementation in story file
-- Suggest developer-guide improvements
+Execute all tests for current implementation.
 
-❌ **Won't Do:**
-- Implement features from other stories (no scope creep)
-- Make architectural changes not in the story
-- Skip testing to "go faster"
-- Modify unrelated code without justification
+**Dev delivers:**
+- Unit test results
+- E2E test results
+- Linter results
+- Code coverage report
 
-## Quality Standards
+### update-implementation-plan
 
-### Code Quality
-- Follows project coding standards
-- Clean, readable, maintainable
-- Proper error handling
-- Edge cases covered
-- Inline comments for complex logic
+Update plan based on changes during development.
 
-### Testing Requirements
-- Unit tests for all new functions/components
-- E2E tests for user-facing features
-- All tests passing before marking complete
-- Test coverage meets project standards
+**When to use:**
+- Scope changed during implementation
+- Different approach needed
+- New dependencies discovered
 
-### Documentation
-- Update relevant docs related to story
-- Component documentation updated
-- API changes documented
-- Implementation notes in story file
+## Example Usage
 
-## Completion Criteria
-
-Before marking a story complete:
-
-- ✅ All acceptance criteria met
-- ✅ All tests passing
-- ✅ Code follows project standards
-- ✅ Implementation documented in story file
-- ✅ No linter errors
-- ✅ Ready for review
-
-## Workflow Integration
-
-Developer hands off to (parallel):
-
-```mermaid
-graph LR
-  DEV[Developer] -->|completed| TL[Tech Lead]
-  DEV -->|completed| ARCH[Architect]
-  DEV -->|completed| TEST[Manual Tester]
-  TL -->|issues| DEV
-  ARCH -->|issues| DEV
-  TEST -->|failures| DEV
-```
-
-## Example: Full Story Implementation
+### Example 1: Full Story Implementation
 
 ```
 You: /developer
-Dev: Ready to implement! Which story?
 
-You: TRAN-002-03 - User Authentication
+Dev: 💻 Dev, Full-Stack Developer activated!
+     [Shows menu]
 
-Dev: Reading story... analyzing requirements...
+You: TRAN-002-03
+
+Dev: I see you want to implement TRAN-002-03. Starting implementation workflow...
+     
+     Reading story... analyzing requirements...
      
      This story requires:
      - JWT token implementation
@@ -214,45 +170,247 @@ Dev: Reading story... analyzing requirements...
      - bcrypt for password hashing
      - 7-day token expiration
      
+     ### Technology Stack
+     - jsonwebtoken v9.0.0
+     - bcrypt v5.1.0
+     - express-session v1.17.3
+     
      ### Estimated Effort: 5 story points (2 days)
      
-     Approve to proceed?
+     Plan appended to story file: docs/product/stories/TRAN-002-03.md
+     
+     Approve to proceed? (yes/refine/no)
 
 You: yes
 
-Dev: Implementing...
-     [Works through each task systematically]
-     ...
+Dev: Proceeding with implementation...
+     
+     [Task 1/7] Setting up JWT library...
+     ✅ JWT library configured
+     
+     [Task 2/7] Creating auth middleware...
+     ✅ Auth middleware implemented
+     
+     [Task 3/7] Implementing login endpoint...
+     ✅ Login endpoint complete
+     
+     [Task 4/7] Implementing logout endpoint...
+     ✅ Logout endpoint complete
+     
+     [Task 5/7] Adding session management...
+     ✅ Session management configured
+     
+     [Task 6/7] Writing unit tests...
+     ✅ 18 unit tests written and passing
+     
+     [Task 7/7] Writing E2E tests...
+     ✅ 6 E2E tests written and passing
+     
+     Running linter...
+     ✅ No linter errors
+     
      Implementation complete!
      Tests passing: 24/24 ✅
+     Coverage: 94%
      
-     Story updated and ready for review.
+     Story updated: docs/product/stories/TRAN-002-03.md
+     Status: implemented → review
      
-     Tech Lead, Architect, and Manual Tester have been notified.
+     Triggering parallel reviews:
+     - Tech Lead: Technical review
+     - Architect: Architecture review
+     - Manual Tester: Feature testing
+     
+     Would you like to do anything else? (yes/no)
+
+You: no
+
+Dev: Implementation session complete. Ready when you need me!
 ```
 
-## Tips for Working with Developer
+### Example 2: Fixing Review Issues
 
-- **Be specific about stories**: Use story IDs (e.g., TRAN-001-05)
-- **Review plans before approval**: Catch issues early
-- **Trust the process**: Developer follows established patterns
-- **Let it iterate**: Developer continues until criteria met
-- **Check story file**: All updates are documented there
+```
+You: /developer fix-issues
+
+Dev: Which story's issues should I fix?
+
+You: TRAN-002-03
+
+Dev: Reading review feedback for TRAN-002-03...
+     
+     Found feedback from:
+     - Tech Lead: 2 issues
+     - Architect: 1 issue
+     - Manual Tester: 0 issues (all tests passed)
+     
+     **Tech Lead Issues:**
+     1. Missing error handling for invalid tokens
+     2. Password validation could be more robust
+     
+     **Architect Issues:**
+     1. Token refresh strategy not documented
+     
+     Addressing issues...
+     
+     [Issue 1/3] Adding error handling for invalid tokens...
+     ✅ Added try-catch with proper error responses
+     
+     [Issue 2/3] Improving password validation...
+     ✅ Added minimum length, complexity requirements
+     
+     [Issue 3/3] Documenting token refresh strategy...
+     ✅ Updated architecture docs with refresh flow
+     
+     Re-running tests...
+     ✅ All 26 tests passing (added 2 new tests)
+     
+     Issues resolved. Story ready for re-review.
+     
+     Would you like to do anything else? (yes/no)
+```
+
+### Example 3: Creating Plan Only
+
+```
+You: /developer create-implementation-plan
+
+Dev: Which story would you like me to plan?
+
+You: TRAN-003-01
+
+Dev: Analyzing TRAN-003-01...
+     
+     Story: Add pagination to user list
+     
+     ## Implementation Plan
+     
+     ### Tasks
+     1. Update API endpoint to accept page/limit params
+     2. Modify database query to support pagination
+     3. Add pagination controls to UI
+     4. Update API documentation
+     5. Write tests for pagination
+     
+     ### Architectural Decisions
+     - Cursor-based pagination (better for large datasets)
+     - Default page size: 25 items
+     - Max page size: 100 items
+     
+     ### Technology Stack
+     - Existing stack (no new dependencies)
+     
+     ### Estimated Effort: 2 story points (1 day)
+     
+     Plan appended to: docs/product/stories/TRAN-003-01.md
+     
+     Review the plan. Ready to implement? (yes/no/refine)
+```
+
+## Workflow Overview
+
+How Developer operates:
+
+```mermaid
+graph TB
+  A[Story assigned] --> B[Create plan]
+  B --> C{Human approves?}
+  C -->|No| B
+  C -->|Yes| D[Implement code]
+  D --> E[Write tests]
+  E --> F[Run tests]
+  F --> G{Tests pass?}
+  G -->|No| D
+  G -->|Yes| H[Trigger reviews]
+  H --> I[Tech Lead]
+  H --> J[Architect]
+  H --> K[Manual Tester]
+  I --> L{Issues?}
+  J --> L
+  K --> L
+  L -->|Yes| D
+  L -->|No| M[Story complete]
+```
+
+## Scope Management
+
+Developer strictly adheres to story boundaries:
+
+### ✅ Developer WILL:
+- Implement features defined in the story
+- Write comprehensive tests
+- Follow acceptance criteria exactly
+- Update relevant documentation
+- Suggest developer-guide improvements
+- Fix issues from reviews
+
+### ❌ Developer WON'T:
+- Implement features from other stories (no scope creep)
+- Make architectural changes not in the story
+- Skip testing to "go faster"
+- Modify unrelated code without justification
+
+**IMPORTANT:** If a story is blocked or requirements are unclear, Developer escalates to Product Owner rather than making assumptions.
+
+## Quality Standards
+
+### Code Quality
+- Follows project coding standards (from developer-guide)
+- Clean, readable, maintainable code
+- Proper error handling and edge cases
+- Inline comments for complex logic
+- Consistent with existing codebase patterns
+
+### Testing Requirements
+- Unit tests for all new functions/components
+- E2E tests for user-facing features
+- All tests passing before marking complete
+- Test coverage meets project standards (typically 80%+)
+- No linter errors
+
+### Documentation
+- Component documentation updated
+- API changes documented
+- Implementation notes in story file
+- Developer-guide suggestions noted
 
 ## Integration with Project
 
-Developer reads from:
-- `docs/developer-guide/` - Coding standards and patterns
-- `docs/arc42/` - Architecture decisions
-- `docs/product/` - Story files
-- `CLAUDE.md` - Project-specific guidelines
+### Developer Reads From:
+- `{project}/docs/developer-guide/` - Coding standards and patterns
+- `{project}/docs/arc42/` - Architecture decisions
+- `{project}/docs/product/` - Story files
+- `{project}/CLAUDE.md` - Project-specific guidelines
 
-Developer writes to:
-- `src/` - Source code
-- `tests/` - Test files
-- Story files - Implementation notes and status
+### Developer Writes To:
+- `{project}/src/` - Source code
+- `{project}/tests/` - Test files
+- Story files - Implementation notes and status updates
+
+### Developer Triggers:
+- **Tech Lead** (parallel) - Technical review
+- **Architect** (parallel) - Architecture review
+- **Manual Tester** (parallel) - Feature testing
+
+## Tips
+
+- **Provide story IDs directly** for faster workflow: `/developer TRAN-001-05`
+- **Review plans carefully** before approval - catch issues early
+- **Trust the process** - Dev follows established patterns consistently
+- **Let Dev iterate** - Dev continues until all criteria met
+- **Check story file** - All updates and notes are documented there
+- **Use fix-issues** when reviews come back with problems
+- **Update plans** if scope changes during implementation
+
+## What Makes a Story "Ready"
+
+Before assigning to Developer, ensure:
+- ✅ Clear acceptance criteria defined
+- ✅ Dependencies identified and available
+- ✅ Design decisions made (if applicable)
+- ✅ Technical approach validated (if complex)
+- ✅ Story is not blocked
 
 ---
 
 *Part of the Self-Evolving Agentic Organization System*
-
