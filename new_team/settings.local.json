@@ -1,9 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Read(//Users/mu/src/transgate/claude-team/test/.claude/**)",
+      "Bash(for:*)",
+      "Read(//Users/mu/src/transgate/claude-team/new_team/**)",
       "Read(//Users/mu/src/transgate/claude-team/**)",
-      "Read(//Users/mu/**)"
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
