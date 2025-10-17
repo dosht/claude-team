@@ -5,6 +5,7 @@ Welcome to the developer guide! This directory contains all the documentation de
 ## Contents
 
 - [Coding Standards](./coding-standards.md) - Code style, patterns, and conventions
+- [TODO App Guide](./todo-app-guide.md) - Specific guide for TODO-001 epic implementation
 - [Testing Guide](./testing-guide.md) - How to write and run tests
 - [Git Workflow](./git-workflow.md) - Branch strategy and commit conventions
 - [Development Setup](./development-setup.md) - Getting started with local development
