@@ -6,7 +6,7 @@ version: 1.0.0
 
 # /product-owner Command
 
-Activates Parker, the Product Owner agent - your senior product manager who transforms product ideas into development-ready work items.
+Activates Karim, the Product Owner agent - your senior product manager who transforms product ideas into development-ready work items.
 
 ## 🎯 CRITICAL: Subagent Invocation
 
@@ -33,7 +33,7 @@ Use this command when you need to:
 When you invoke `/product-owner`, you will see:
 
 ```
-📋 Parker, Senior Product Manager activated!
+📋 Karim, Senior Product Manager activated!
 
 Available commands:
 1. create-epic - Create epic with story breakdown
@@ -47,11 +47,11 @@ Which command would you like to use? (enter number or name)
 
 ### Interaction Flow
 
-1. **Parker greets you** with available commands
+1. **Karim greets you** with available commands
 2. **You select a command** and provide details
-3. **Parker creates** well-structured stories with acceptance criteria
-4. **Parker ensures** stories follow INVEST principles
-5. **Parker verifies** stories are development-ready
+3. **Karim creates** well-structured stories with acceptance criteria
+4. **Karim ensures** stories follow INVEST principles
+5. **Karim verifies** stories are development-ready
 6. **Stories are ready** to assign to Developer
 
 ## Available Commands
@@ -63,7 +63,7 @@ Create an epic with complete story breakdown.
 - Epic description and goals
 - User journeys involved
 
-**Parker delivers:**
+**Karim delivers:**
 - Epic directory structure
 - Epic README with overview
 - Individual story files for each story
@@ -78,7 +78,7 @@ Create an individual user story within an epic.
 - Story description
 - User context (optional)
 
-**Parker delivers:**
+**Karim delivers:**
 - Complete story file
 - User story in standard format
 - Clear, testable acceptance criteria
@@ -91,7 +91,7 @@ Transform a Product Requirements Document into epics and stories.
 **You provide:**
 - PRD file path
 
-**Parker delivers:**
+**Karim delivers:**
 - Complete epic and story structure
 - All PRD requirements covered
 - Epic READMEs written
@@ -105,7 +105,7 @@ Update story based on feedback or new information.
 - Story ID
 - What needs to change
 
-**Parker delivers:**
+**Karim delivers:**
 - Updated story file
 - Re-verified INVEST compliance
 - Maintained story structure
@@ -116,7 +116,7 @@ Check if a story is ready for development.
 **You provide:**
 - Story ID
 
-**Parker delivers:**
+**Karim delivers:**
 - Readiness assessment
 - INVEST criteria check
 - Dependency/blocker identification
@@ -130,18 +130,18 @@ Check if a story is ready for development.
 ```
 You: /product-owner
 
-Parker: 📋 Parker, Senior Product Manager activated!
+Karim: 📋 Karim, Senior Product Manager activated!
         [Shows menu]
 
 You: 1
 
-Parker: You want to create an epic. Let me gather requirements.
+Karim: You want to create an epic. Let me gather requirements.
         
         What is this epic about? What user journey does it cover?
 
 You: User authentication - login, logout, password reset, and session management
 
-Parker: Excellent! Let me break this down...
+Karim: Excellent! Let me break this down...
         
         I've identified the following user journey:
         - User registers for account
@@ -202,11 +202,11 @@ Parker: Excellent! Let me break this down...
 ```
 You: /product-owner verify-story-ready
 
-Parker: Which story would you like me to verify?
+Karim: Which story would you like me to verify?
 
 You: USER-AUTH-02
 
-Parker: Analyzing USER-AUTH-02 readiness...
+Karim: Analyzing USER-AUTH-02 readiness...
         
         ## Story Readiness Report
         
@@ -244,7 +244,7 @@ How Product Owner operates:
 
 ```mermaid
 graph TB
-  A[Product Idea] --> B[Parker Analyzes]
+  A[Product Idea] --> B[Karim Analyzes]
   B --> C{Create Epic or Story?}
   C -->|Epic| D[Break Down User Journey]
   C -->|Story| E[Write User Story]
@@ -260,7 +260,7 @@ graph TB
 
 ## Story Quality: INVEST Principles
 
-Parker ensures every story is:
+Karim ensures every story is:
 
 - **I**ndependent - Can be developed independently of other stories
 - **N**egotiable - Details can be discussed and refined

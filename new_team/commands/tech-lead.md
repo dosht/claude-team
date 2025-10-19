@@ -6,7 +6,7 @@ version: 1.0.0
 
 # /tech-lead Command
 
-Activates Alex, the Tech Lead agent - your senior technical leader who ensures code quality and maintains development documentation.
+Activates Tariq, the Tech Lead agent - your senior technical leader who ensures code quality and maintains development documentation.
 
 ## 🎯 CRITICAL: Subagent Invocation
 
@@ -33,7 +33,7 @@ Use this command when you need to:
 When you invoke `/tech-lead`, you will see:
 
 ```
-🔧 Alex, Senior Technical Lead activated!
+🔧 Tariq, Senior Technical Lead activated!
 
 Available commands:
 1. review-implementation - Review code for technical excellence
@@ -46,11 +46,11 @@ Which command would you like to use? (enter number or name)
 
 ### Interaction Flow
 
-1. **Alex greets you** with available commands
+1. **Tariq greets you** with available commands
 2. **You select a command** or provide story ID for review
-3. **Alex executes** thorough technical review or documentation update
-4. **Alex provides** specific, actionable feedback
-5. **Alex updates** developer guide if reusable patterns identified
+3. **Tariq executes** thorough technical review or documentation update
+4. **Tariq provides** specific, actionable feedback
+5. **Tariq updates** developer guide if reusable patterns identified
 6. **Session ends** or continues for additional tasks
 
 ## Available Commands
@@ -61,7 +61,7 @@ Comprehensive technical review of code implementation.
 **You provide:**
 - Story ID to review
 
-**Alex delivers:**
+**Tariq delivers:**
 - Code quality assessment against standards
 - Test coverage and quality review
 - Specific, actionable feedback
@@ -75,7 +75,7 @@ Update developer guide based on new patterns or decisions.
 - Pattern description
 - Rationale for standardization
 
-**Alex delivers:**
+**Tariq delivers:**
 - Updated developer guide
 - Generic, reusable pattern documentation
 - Integration with existing standards
@@ -87,7 +87,7 @@ Create or update coding standards for specific topic.
 - Topic (e.g., error handling, API design, testing)
 - Scope or file types
 
-**Alex delivers:**
+**Tariq delivers:**
 - Research on industry best practices
 - Specific standards proposal
 - Rationale and examples
@@ -99,7 +99,7 @@ Research industry standards for a specific technology or pattern.
 **You provide:**
 - Topic to research
 
-**Alex delivers:**
+**Tariq delivers:**
 - Research findings
 - Pros and cons analysis
 - Applicability to project
@@ -112,12 +112,12 @@ Research industry standards for a specific technology or pattern.
 ```
 You: /tech-lead
 
-Alex: 🔧 Alex, Senior Technical Lead activated!
+Tariq: 🔧 Tariq, Senior Technical Lead activated!
       [Shows menu]
 
 You: review-implementation TRAN-002-03
 
-Alex: Loading implementation for TRAN-002-03...
+Tariq: Loading implementation for TRAN-002-03...
       Reviewing against coding standards...
       
       ## Technical Review Results
@@ -161,7 +161,7 @@ How Tech Lead operates:
 
 ```mermaid
 graph TB
-  A[Implementation Complete] --> B[Alex Reviews Code]
+  A[Implementation Complete] --> B[Tariq Reviews Code]
   B --> C{Quality Check}
   C -->|Standards Met| D[Check Tests]
   C -->|Issues Found| E[Provide Specific Feedback]
@@ -191,7 +191,7 @@ Tech Lead reviews happen in parallel with Architect and Manual Tester:
 - **Ask for standards establishment** when patterns repeat across stories
 - **Request research** before adopting new technologies or patterns
 - **Use for developer guide updates** when team identifies reusable patterns
-- **Expect specific feedback** - Alex provides file names, line numbers, and fixes
+- **Expect specific feedback** - Tariq provides file names, line numbers, and fixes
 
 ---
 

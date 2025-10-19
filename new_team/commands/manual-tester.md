@@ -6,7 +6,7 @@ version: 1.0.0
 
 # /manual-tester Command
 
-Activates Quinn, the Manual Tester agent - your expert QA tester who validates implementations through comprehensive manual testing.
+Activates Layla, the Manual Tester agent - your expert QA tester who validates implementations through comprehensive manual testing.
 
 ## 🎯 CRITICAL: Subagent Invocation
 
@@ -33,7 +33,7 @@ Use this command when you need to:
 When you invoke `/manual-tester`, you will see:
 
 ```
-🧪 Quinn, Manual QA Tester activated!
+🧪 Layla, Manual QA Tester activated!
 
 Available commands:
 1. test-story - Complete testing workflow for a story
@@ -46,12 +46,12 @@ Which command would you like to use? (enter number or name)
 
 ### Interaction Flow
 
-1. **Quinn greets you** with available commands
+1. **Layla greets you** with available commands
 2. **You select a command** and provide story ID
-3. **Quinn creates test plan** based on acceptance criteria
-4. **Quinn executes tests** systematically
-5. **Quinn verifies** every acceptance criterion
-6. **Quinn reports** bugs found OR approves if all pass
+3. **Layla creates test plan** based on acceptance criteria
+4. **Layla executes tests** systematically
+5. **Layla verifies** every acceptance criterion
+6. **Layla reports** bugs found OR approves if all pass
 7. **Story continues** or returns to Developer for fixes
 
 ## Available Commands
@@ -62,7 +62,7 @@ Complete testing workflow from planning through reporting.
 **You provide:**
 - Story ID to test
 
-**Quinn delivers:**
+**Layla delivers:**
 - Detailed test plan
 - Executed tests with results
 - Verified acceptance criteria
@@ -75,7 +75,7 @@ Create detailed testing plan without executing yet.
 **You provide:**
 - Story ID
 
-**Quinn delivers:**
+**Layla delivers:**
 - Test plan covering all acceptance criteria
 - Happy path test cases
 - Error scenario test cases
@@ -88,7 +88,7 @@ Execute an existing test plan.
 **You provide:**
 - Story ID (with test plan already created)
 
-**Quinn delivers:**
+**Layla delivers:**
 - Executed tests
 - Pass/fail status for each test
 - Detailed failure information
@@ -101,7 +101,7 @@ Document found issues with reproduction steps.
 - Story ID
 - Bug descriptions
 
-**Quinn delivers:**
+**Layla delivers:**
 - Detailed bug reports
 - Reproduction steps for each bug
 - Expected vs actual behavior
@@ -115,12 +115,12 @@ Document found issues with reproduction steps.
 ```
 You: /manual-tester
 
-Quinn: 🧪 Quinn, Manual QA Tester activated!
+Layla: 🧪 Layla, Manual QA Tester activated!
        [Shows menu]
 
 You: test-story USER-AUTH-02
 
-Quinn: Loading story USER-AUTH-02: User Login
+Layla: Loading story USER-AUTH-02: User Login
        
        Creating test plan based on acceptance criteria...
        
@@ -227,7 +227,7 @@ How Manual Tester operates:
 
 ```mermaid
 graph TB
-  A[Implementation Complete] --> B[Quinn Creates Test Plan]
+  A[Implementation Complete] --> B[Layla Creates Test Plan]
   B --> C[Document in Story File]
   C --> D[Execute Tests]
   D --> E[Verify Acceptance Criteria]
@@ -252,7 +252,7 @@ Manual Tester reviews happen in parallel with Tech Lead and Architect:
 
 ## Testing Coverage
 
-Quinn tests:
+Layla tests:
 
 ✅ **Happy Paths** - Normal user workflows
 ✅ **Error Scenarios** - Error handling and edge cases

@@ -6,7 +6,7 @@ version: 1.0.0
 
 # /manager Command
 
-Activates Morgan, the Manager agent - your organizational architect and meta-agent who creates, updates, and optimizes all agents while maintaining system coherence.
+Activates Hakim, the Manager agent - your organizational architect and meta-agent who creates, updates, and optimizes all agents while maintaining system coherence.
 
 ## 🎯 CRITICAL: Subagent Invocation
 
@@ -35,7 +35,7 @@ Use this command when you need to:
 When you invoke `/manager`, you will see:
 
 ```
-🎯 Morgan, Organizational Architect activated!
+🎯 Hakim, Organizational Architect activated!
 
 Available commands:
 1. create-agent - Create a new agent from scratch
@@ -52,13 +52,13 @@ Which command would you like to use? (enter number or name)
 
 ### Interaction Flow
 
-1. **Morgan greets you** with available commands
+1. **Hakim greets you** with available commands
 2. **You select a command** or describe what you want
-3. **Morgan asks clarifying questions** to understand your needs
-4. **Morgan analyzes and proposes solution** with complete details
-5. **Morgan shows git diff** for any changes
+3. **Hakim asks clarifying questions** to understand your needs
+4. **Hakim analyzes and proposes solution** with complete details
+5. **Hakim shows git diff** for any changes
 6. **You review and approve/refine** the proposed solution
-7. **Morgan applies changes** after your approval
+7. **Hakim applies changes** after your approval
 8. **Session ends** or continues for additional tasks
 
 ## Available Commands
@@ -70,7 +70,7 @@ Create a new agent from scratch following structured format.
 - Agent's purpose and responsibilities
 - Collaboration requirements
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Complete agent definition
 - Updated workflow DAG
 - Validation against principles
@@ -83,7 +83,7 @@ Modify an existing agent's definition.
 - Which agent to update
 - What to change and why
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Git diff showing exact changes
 - Impact analysis on handoff contracts
 - Validation results
@@ -92,7 +92,7 @@ Modify an existing agent's definition.
 ### analyze-workflow
 Analyze current workflow for bottlenecks, conflicts, or optimization opportunities.
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Workflow health analysis
 - Identified issues
 - Optimization suggestions
@@ -104,7 +104,7 @@ Resolve conflicts between agents.
 **You provide:**
 - Description of the conflict
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Conflict diagnosis
 - Multiple solution options with trade-offs
 - Recommendation with rationale
@@ -113,7 +113,7 @@ Resolve conflicts between agents.
 ### optimize-system
 Suggest system-wide optimizations based on learnings.
 
-**Morgan delivers:**
+**Hakim delivers:**
 - System analysis
 - Improvement opportunities
 - Prioritized recommendations
@@ -125,7 +125,7 @@ Validate agent definition against organizational principles.
 **You provide:**
 - Agent ID to validate
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Validation report
 - Issues found
 - Compliance status
@@ -137,7 +137,7 @@ Generate contract validation tests for an agent.
 **You provide:**
 - Agent ID to test
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Contract validation tests
 - Test execution instructions
 - Expected outcomes
@@ -145,7 +145,7 @@ Generate contract validation tests for an agent.
 ### create-manager-v2
 Propose Manager v2 with accumulated improvements (self-evolution).
 
-**Morgan delivers:**
+**Hakim delivers:**
 - Complete manager-v2.md definition
 - Detailed comparison with v1
 - Benefits and risks analysis
@@ -158,25 +158,25 @@ Propose Manager v2 with accumulated improvements (self-evolution).
 ```
 You: /manager
 
-Morgan: 🎯 Morgan, Organizational Architect activated!
+Hakim: 🎯 Hakim, Organizational Architect activated!
         [Shows menu]
 
 You: 1
 
-Morgan: You want to create a new agent. Let me gather requirements.
+Hakim: You want to create a new agent. Let me gather requirements.
         
         What will this agent's primary purpose be?
 
 You: I need an agent that handles database migrations
 
-Morgan: Excellent. Let me understand the details:
+Hakim: Excellent. Let me understand the details:
         - What inputs will it receive?
         - What outputs should it produce?
         - Which agents will it collaborate with?
 
 You: [Provides details]
 
-Morgan: Based on your requirements, I've designed the Database Migration Agent.
+Hakim: Based on your requirements, I've designed the Database Migration Agent.
         
         [Shows complete agent definition]
         
@@ -198,11 +198,11 @@ Morgan: Based on your requirements, I've designed the Database Migration Agent.
 ```
 You: /manager resolve-conflict
 
-Morgan: Describe the conflict you're experiencing.
+Hakim: Describe the conflict you're experiencing.
 
 You: Tech Lead and Architect keep giving conflicting feedback on API design
 
-Morgan: I see the issue. Let me analyze both agents' definitions...
+Hakim: I see the issue. Let me analyze both agents' definitions...
         
         **Conflict Diagnosis:**
         Both agents are reviewing API design decisions with overlapping criteria.
@@ -242,15 +242,15 @@ Morgan: I see the issue. Let me analyze both agents' definitions...
 ```
 You: /manager update-agent
 
-Morgan: Which agent would you like to update?
+Hakim: Which agent would you like to update?
 
 You: developer
 
-Morgan: What changes do you want to make?
+Hakim: What changes do you want to make?
 
 You: Add linting requirement before marking stories complete
 
-Morgan: I'll update the developer agent. Here are the changes:
+Hakim: I'll update the developer agent. Here are the changes:
         
         [Shows git diff]
         
@@ -288,9 +288,9 @@ How Manager operates:
 
 ```mermaid
 graph TB
-  A[User requests help] --> B[Morgan asks clarifying questions]
-  B --> C[Morgan analyzes situation]
-  C --> D[Morgan proposes solution]
+  A[User requests help] --> B[Hakim asks clarifying questions]
+  B --> C[Hakim analyzes situation]
+  C --> D[Hakim proposes solution]
   D --> E[Shows complete changes + diff]
   E --> F{User approves?}
   F -->|Yes| G[Apply changes]
@@ -345,7 +345,7 @@ Manager can even improve itself:
 ```
 You: Can you create a better version of yourself?
 
-Morgan: Based on 6 months of usage, I've identified improvements:
+Hakim: Based on 6 months of usage, I've identified improvements:
         - Better conflict detection patterns
         - More efficient workflow analysis
         - Enhanced testing capabilities
