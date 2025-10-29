@@ -247,7 +247,7 @@ Self-assessment questions:
 ## Exercises Directory
 
 All exercises and solutions are in:
-`docs/training/{trainee-name}/{topic}/exercises/`
+[Exercises Directory](docs/training/{trainee-name}/{topic}/exercises/)
 
 Submit your solutions there with filename:
 `trainee-submission-{exercise-number}.{ext}`
@@ -269,12 +269,13 @@ Submit your solutions there with filename:
 - Location: docs/training/{trainee-name}/{topic}/tutorial-{version}.md
 - If updating existing tutorial, increment version number
 - Keep previous versions for reference
+- Reference using markdown link: `[{Topic} Tutorial](docs/training/{trainee-name}/{topic}/tutorial-{version}.md)`
 
 **Update Progress Tracker:**
 - Add topic to "In Progress" section
 - Set start date and 0% progress
 - Set status: "Tutorial Created - Not Started"
-- Link to tutorial file
+- Link to tutorial file using markdown: `[{Topic} Tutorial](docs/training/{trainee-name}/{topic}/tutorial-{version}.md)`
 
 **Notify Senior Developer:**
 - Present tutorial summary

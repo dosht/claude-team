@@ -490,8 +490,8 @@ This outcome requires human (senior developer) review and decision on next steps
 
 ## Trainee Growth & Learning
 
-**Compared to Baseline Assessment:**
-{How trainee has grown throughout training}
+**Compared to Initial Topic Assessments:**
+{How trainee has grown throughout their accumulated topic assessments and training}
 
 **Key Achievements:**
 - {Achievement 1}
@@ -521,15 +521,15 @@ This outcome requires human (senior developer) review and decision on next steps
 ## Review Artifacts
 
 **Specialist Reviews:**
-- Tech Lead Review: {link or embedded}
-- Architect Review: {link or embedded}
-- Manual Tester Review: {link or embedded}
-- React UI Designer Review: {link or embedded}
+- Tech Lead Review: [{project-name} - Tech Lead Review](path/to/tech-lead-review.md)
+- Architect Review: [{project-name} - Architecture Review](path/to/architect-review.md)
+- Manual Tester Review: [{project-name} - QA Review](path/to/tester-review.md)
+- React UI Designer Review: [{project-name} - UI Review](path/to/ui-review.md)
 
 **Trainee Submission:**
-- Implementation: docs/training/{trainee-name}/capstone/{project-name}/implementation/
-- Implementation Notes: {link}
-- Test Results: {link}
+- Implementation: [Capstone Implementation](docs/training/{trainee-name}/capstone/{project-name}/implementation/)
+- Implementation Notes: [Implementation Notes](docs/training/{trainee-name}/capstone/{project-name}/IMPLEMENTATION-NOTES.md)
+- Test Results: [Test Results](docs/training/{trainee-name}/capstone/{project-name}/test-results.md)
 
 ---
 

@@ -68,7 +68,7 @@ Display comprehensive overview of all trainees, their progress, and status to he
 
 **Active - Initial Assessment:**
 - Recently started
-- Baseline assessment complete
+- First topic assessments complete (1-2 topics)
 - Low production readiness (<30%)
 
 **Needs Attention:**

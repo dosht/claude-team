@@ -66,10 +66,10 @@ Evaluate trainee progress on specific topic or overall development, update progr
 - Identify completed vs in-progress vs not started
 
 **Assess Trajectory:**
-- Compare current skills to baseline assessment
-- Calculate skill improvement rates
-- Identify acceleration or deceleration patterns
-- Predict time to production readiness
+- Compare current skills to initial topic assessments
+- Calculate skill improvement rates across all assessed topics
+- Identify acceleration or deceleration patterns per topic
+- Predict time to production readiness based on topic coverage
 
 **Evaluate Readiness Dimensions:**
 - Technical skills: Proficiency in required technologies
@@ -136,7 +136,7 @@ Evaluate trainee progress on specific topic or overall development, update progr
 ## Learning Velocity
 **Pace:** {Fast / Moderate / Slow}
 **Time to Complete:** {X hours/days} (vs estimated {Y hours})
-**Comparison to Baseline:** {Faster/Same/Slower than expected}
+**Comparison to Initial Assessment:** {Faster/Same/Slower than expected}
 
 ## Next Steps
 
@@ -195,15 +195,15 @@ Evaluate trainee progress on specific topic or overall development, update progr
 ## Skill Development Trends
 
 **Technical Skills:**
-- Baseline: {score} → Current: {score} ({+/-X% change})
+- First Topics: {score} → Recent Topics: {score} ({+/-X% change})
 - Trajectory: {Improving/Stable/Declining}
 
 **Problem Solving:**
-- Baseline: {score} → Current: {score} ({+/-X% change})
+- First Topics: {score} → Recent Topics: {score} ({+/-X% change})
 - Trajectory: {Improving/Stable/Declining}
 
 **Code Quality:**
-- Baseline: {score} → Current: {score} ({+/-X% change})
+- First Topics: {score} → Recent Topics: {score} ({+/-X% change})
 - Trajectory: {Improving/Stable/Declining}
 
 **Learning Velocity:**
