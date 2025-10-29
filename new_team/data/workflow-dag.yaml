@@ -51,6 +51,16 @@ nodes:
       - "react-components"
       - "ui-documentation"
 
+  junior-developer-mentor:
+    agent-id: "junior-developer-mentor"
+    role: "Training junior developers through adaptive learning"
+    outputs:
+      - "trainee-assessment"
+      - "custom-tutorial"
+      - "progress-report"
+      - "capstone-project"
+      - "capstone-review"
+
 # Edge definitions - how agents hand off to each other
 edges:
   # Story creation to implementation
@@ -170,26 +180,256 @@ manager-workflow:
     data: "request"
     trigger: "manual-invocation"
     description: "Human invokes Manager for meta-operations"
-    
+
   - from: "manager"
     to: "any-agent"
     data: "updated-agent-definition"
     trigger: "human-approval"
     description: "Manager creates/updates agents after human approval"
 
+# Training workflow (parallel to main workflow - human-invoked)
+training-workflow:
+  # Initial assessment and learning path
+  - from: "human"
+    to: "junior-developer-mentor"
+    data: "trainee-info"
+    trigger: "manual-invocation"
+    description: "Senior developer or trainee initiates training (assess-trainee)"
+
+  - from: "junior-developer-mentor"
+    to: "human-approval"
+    data: "assessment-report + learning-path"
+    trigger: "auto"
+    description: "Mentor presents assessment and recommended learning path"
+
+  - from: "human-approval"
+    to: "junior-developer-mentor"
+    data: "approved-learning-path"
+    trigger: "approval"
+    description: "Senior developer approves learning path"
+
+  # Tutorial creation with specialist input
+  - from: "junior-developer-mentor"
+    to: "tech-lead"
+    data: "tutorial-content-request"
+    trigger: "if-coding-standards-needed"
+    parallel: true
+    description: "Mentor requests coding standards/best practices for tutorial"
+
+  - from: "junior-developer-mentor"
+    to: "architect"
+    data: "tutorial-content-request"
+    trigger: "if-architectural-content-needed"
+    parallel: true
+    description: "Mentor requests architectural patterns for tutorial"
+
+  - from: "junior-developer-mentor"
+    to: "developer"
+    data: "example-request"
+    trigger: "if-code-examples-needed"
+    parallel: true
+    description: "Mentor requests working code examples for tutorial"
+
+  - from: "junior-developer-mentor"
+    to: "react-ui-designer"
+    data: "ui-tutorial-request"
+    trigger: "if-ui-content-needed"
+    parallel: true
+    description: "Mentor requests UI/UX patterns for tutorial"
+
+  # Specialists provide content back to Mentor (parallel responses)
+  - from: "tech-lead"
+    to: "junior-developer-mentor"
+    data: "coding-standards + best-practices"
+    trigger: "auto"
+    parallel: true
+    description: "Tech Lead provides coding guidance for tutorial"
+
+  - from: "architect"
+    to: "junior-developer-mentor"
+    data: "architectural-patterns"
+    trigger: "auto"
+    parallel: true
+    description: "Architect provides design patterns for tutorial"
+
+  - from: "developer"
+    to: "junior-developer-mentor"
+    data: "code-examples"
+    trigger: "auto"
+    parallel: true
+    description: "Developer provides working code examples"
+
+  - from: "react-ui-designer"
+    to: "junior-developer-mentor"
+    data: "ui-patterns"
+    trigger: "auto"
+    parallel: true
+    description: "React UI Designer provides UI guidance"
+
+  # Tutorial completion and progress tracking
+  - from: "junior-developer-mentor"
+    to: "trainee"
+    data: "custom-tutorial"
+    trigger: "auto"
+    description: "Mentor delivers tutorial to trainee"
+
+  - from: "trainee"
+    to: "junior-developer-mentor"
+    data: "completed-exercises"
+    trigger: "manual-submission"
+    description: "Trainee submits completed exercises (check-progress)"
+
+  - from: "junior-developer-mentor"
+    to: "junior-developer-mentor"
+    data: "progress-report"
+    trigger: "if-mastery-achieved"
+    description: "Mentor creates next tutorial for new topic (create-tutorial)"
+
+  - from: "junior-developer-mentor"
+    to: "trainee"
+    data: "remediation-tutorial"
+    trigger: "if-struggling"
+    description: "Mentor provides additional support and practice"
+
+  - from: "junior-developer-mentor"
+    to: "human"
+    data: "escalation-report"
+    trigger: "if-trainee-not-progressing"
+    description: "Mentor escalates to senior developer for intervention"
+
+  # Capstone project workflow
+  - from: "junior-developer-mentor"
+    to: "product-owner"
+    data: "capstone-requirements-request"
+    trigger: "if-realistic-story-format-needed"
+    description: "Mentor requests user story format for capstone (design-capstone)"
+
+  - from: "product-owner"
+    to: "junior-developer-mentor"
+    data: "user-story-format"
+    trigger: "auto"
+    description: "Product Owner provides story format guidance"
+
+  - from: "junior-developer-mentor"
+    to: "trainee"
+    data: "capstone-project"
+    trigger: "if-readiness-above-threshold"
+    description: "Mentor assigns capstone project"
+
+  - from: "trainee"
+    to: "junior-developer-mentor"
+    data: "completed-capstone"
+    trigger: "manual-submission"
+    description: "Trainee submits capstone for review (review-capstone)"
+
+  # Capstone multi-agent review (parallel)
+  - from: "junior-developer-mentor"
+    to: "tech-lead"
+    data: "capstone-implementation"
+    trigger: "auto"
+    parallel: true
+    description: "Mentor triggers Tech Lead review of capstone code"
+
+  - from: "junior-developer-mentor"
+    to: "architect"
+    data: "capstone-implementation"
+    trigger: "if-architectural-review-needed"
+    parallel: true
+    description: "Mentor triggers Architect review of capstone architecture"
+
+  - from: "junior-developer-mentor"
+    to: "manual-tester"
+    data: "capstone-implementation"
+    trigger: "auto"
+    parallel: true
+    description: "Mentor triggers Manual Tester validation of capstone"
+
+  - from: "junior-developer-mentor"
+    to: "react-ui-designer"
+    data: "capstone-implementation"
+    trigger: "if-ui-review-needed"
+    parallel: true
+    description: "Mentor triggers UI Designer review of capstone UI"
+
+  # Specialists provide capstone reviews back to Mentor (parallel)
+  - from: "tech-lead"
+    to: "junior-developer-mentor"
+    data: "technical-capstone-review"
+    trigger: "auto"
+    parallel: true
+    description: "Tech Lead provides code quality review"
+
+  - from: "architect"
+    to: "junior-developer-mentor"
+    data: "architectural-capstone-review"
+    trigger: "auto"
+    parallel: true
+    description: "Architect provides architecture review"
+
+  - from: "manual-tester"
+    to: "junior-developer-mentor"
+    data: "testing-capstone-review"
+    trigger: "auto"
+    parallel: true
+    description: "Manual Tester provides QA validation"
+
+  - from: "react-ui-designer"
+    to: "junior-developer-mentor"
+    data: "ui-capstone-review"
+    trigger: "auto"
+    parallel: true
+    description: "React UI Designer provides UI review"
+
+  # Capstone completion and production readiness
+  - from: "junior-developer-mentor"
+    to: "trainee"
+    data: "comprehensive-capstone-review"
+    trigger: "auto"
+    description: "Mentor delivers aggregated review to trainee"
+
+  - from: "junior-developer-mentor"
+    to: "trainee"
+    data: "revision-guidance"
+    trigger: "if-revisions-needed"
+    description: "Mentor provides specific revision guidance"
+
+  - from: "junior-developer-mentor"
+    to: "human"
+    data: "production-ready-notification"
+    trigger: "if-capstone-passed"
+    description: "Mentor notifies senior developer trainee is production ready"
+
+  - from: "human"
+    to: "production-assignment"
+    data: "trainee-assignment"
+    trigger: "manual-decision"
+    description: "Senior developer assigns production work to graduated trainee"
+
 # Termination conditions
 termination:
   success:
     condition: "All acceptance criteria met AND all reviews passed AND human validated"
     outcome: "Story marked complete, epic progress updated"
-    
+
   blocked:
     condition: "Dependencies not met OR external blocker"
     outcome: "Story marked blocked, escalate to Product Owner"
-    
+
   rejected:
     condition: "Fundamental issues OR requirements unclear"
     outcome: "Story returned to Product Owner for refinement"
+
+  training-success:
+    condition: "Capstone passed AND production readiness ≥90%"
+    outcome: "Trainee graduates to supervised production work"
+
+  training-extended:
+    condition: "Progress slower than expected OR additional topics needed"
+    outcome: "Learning path adjusted, timeline extended"
+
+  training-blocked:
+    condition: "Trainee not progressing after multiple interventions"
+    outcome: "Escalate to senior developer for human decision on next steps"
 
 # Loop detection
 loops:
@@ -211,6 +451,18 @@ loops:
     termination: "All tests passing"
     max-iterations: 10
 
+  trainee-tutorial-loop:
+    nodes: ["junior-developer-mentor", "trainee", "junior-developer-mentor"]
+    description: "Trainee learns topic through tutorial and exercises"
+    termination: "Mastery achieved OR escalation needed"
+    max-iterations: 3
+
+  trainee-capstone-revision-loop:
+    nodes: ["junior-developer-mentor", "trainee", "junior-developer-mentor"]
+    description: "Trainee revises capstone based on feedback"
+    termination: "Capstone passes OR fundamental gaps identified"
+    max-iterations: 2
+
 # Parallel execution groups
 parallel-groups:
   reviews:
@@ -221,6 +473,26 @@ parallel-groups:
       - "manual-tester"
     synchronization: "All must complete before proceeding"
     failure-handling: "Any failure returns to Developer"
+
+  tutorial-content-creation:
+    description: "Specialists provide content for tutorial simultaneously"
+    agents:
+      - "tech-lead"
+      - "architect"
+      - "developer"
+      - "react-ui-designer"
+    synchronization: "All requested agents must respond"
+    failure-handling: "Continue with available responses, note missing"
+
+  capstone-reviews:
+    description: "Specialists review capstone simultaneously"
+    agents:
+      - "tech-lead"
+      - "architect"
+      - "manual-tester"
+      - "react-ui-designer"
+    synchronization: "All requested agents must complete"
+    failure-handling: "Aggregate available reviews, note missing"
 
 # Workflow visualization (Mermaid format)
 visualization: |
