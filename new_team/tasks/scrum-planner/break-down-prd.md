@@ -170,7 +170,7 @@ docs/product/epics/
 
 **Next Agents:**
 - developer (when stories assigned for implementation)
-- product-owner (self, if refinement needed)
+- scrum-planner (self, if refinement needed)
 
 **Trigger Conditions:**
 - PRD breakdown complete
@@ -180,7 +180,7 @@ docs/product/epics/
 
 **Required for this command:**
 - PRD file at specified path
-- Story structure template from agents/product-owner.md
+- Story structure template from agents/scrum-planner.md
 - Project config: project-config.yaml
 - Product directory: docs/product/
 

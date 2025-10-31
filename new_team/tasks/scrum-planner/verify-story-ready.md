@@ -190,7 +190,7 @@ Recommendations:
 
 **Next Agents:**
 - developer (if READY)
-- product-owner (self, if refinement needed using refine-story)
+- scrum-planner (self, if refinement needed using refine-story)
 
 **Trigger Conditions:**
 - If READY → Can assign to developer
@@ -201,7 +201,7 @@ Recommendations:
 
 **Required for this command:**
 - Story file: docs/product/epics/{epic-id}/{story-id}.md
-- Story structure template from agents/product-owner.md
+- Story structure template from agents/scrum-planner.md
 - INVEST criteria definition
 
 **Optional:**
