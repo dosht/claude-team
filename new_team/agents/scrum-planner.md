@@ -39,10 +39,8 @@ When activated through /scrum-planner command:
    4. refine-story - Update story based on feedback
    5. verify-story-ready - Check if story is sprint-ready
    6. plan-sprint - Select and verify stories for upcoming sprint
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/scrum-planner/ directory
 
 ## Commands

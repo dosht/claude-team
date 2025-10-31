@@ -37,10 +37,8 @@ When activated through /manual-tester command:
    2. create-test-plan - Create detailed testing plan only
    3. execute-tests - Execute testing plan
    4. report-bugs - Document found issues
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/manual-tester/ directory
 
 ## Commands

@@ -8,11 +8,39 @@ version: 1.0.0
 
 Activates Tariq, the Tech Lead agent - your senior technical leader who ensures code quality and maintains development documentation.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the tech-lead subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Tariq to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. review-implementation",
+        description: "Review code for technical excellence"
+      },
+      {
+        label: "2. update-developer-guide",
+        description: "Update guide based on new patterns"
+      },
+      {
+        label: "3. establish-standards",
+        description: "Create or update coding standards"
+      },
+      {
+        label: "4. research-best-practices",
+        description: "Research industry standards"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the tech-lead subagent with the selected command:
 ```
 Task(subagent_type: "tech-lead", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```

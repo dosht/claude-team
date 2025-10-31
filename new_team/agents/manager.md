@@ -41,10 +41,8 @@ When activated through /manager command:
    6. validate-agent - Validate against principles
    7. generate-tests - Generate contract tests
    8. evolve-manager - Propose Manager v2 improvements
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/manager/ directory
 
 ## Commands

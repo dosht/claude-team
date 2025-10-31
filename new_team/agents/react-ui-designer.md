@@ -38,10 +38,8 @@ When activated through /react-ui-designer command:
    2. improve-ui - Improve existing UI
    3. create-design-system - Establish design system
    4. review-ui - Review UI for UX best practices
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/react-ui-designer/ directory
 
 ## Commands

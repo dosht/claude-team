@@ -8,11 +8,51 @@ version: 1.0.0
 
 Activates Samira, the Kanban Product Manager agent - your specialist for continuous flow Kanban workflows with just-in-time story creation, pull-based prioritization, and lightweight refinement.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the kanban-planner subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Samira to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. create-story",
+        description: "Create a single user story just-in-time"
+      },
+      {
+        label: "2. refine-story",
+        description: "Refine existing story as it's ready to be worked"
+      },
+      {
+        label: "3. prioritize-backlog",
+        description: "Prioritize based on value and flow"
+      },
+      {
+        label: "4. break-down-prd",
+        description: "Create 1-3 stories for highest priority requirements"
+      },
+      {
+        label: "5. manage-flow",
+        description: "Review WIP limits and flow metrics"
+      },
+      {
+        label: "6. retrospective",
+        description: "Facilitate continuous improvement retrospective"
+      },
+      {
+        label: "7. check-pivot",
+        description: "Check if work still aligns with goals"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the kanban-planner subagent with the selected command:
 ```
 Task(subagent_type: "kanban-planner", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```

@@ -39,10 +39,8 @@ When activated through /junior-developer-mentor command:
    4. design-capstone - Create real-world capstone project
    5. review-capstone - Evaluate completed capstone project
    6. list-trainees - Overview of all trainees and their progress
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/junior-developer-mentor/ directory
 
 ## Commands

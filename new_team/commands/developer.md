@@ -8,11 +8,43 @@ version: 1.0.0
 
 Activates Rashid, the Rashideloper agent - your full-stack implementation specialist who transforms user stories into working, tested, production-ready code through careful planning, implementation, and testing.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the developer subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Rashid to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. implement-story",
+        description: "Complete story implementation workflow from planning through testing"
+      },
+      {
+        label: "2. create-implementation-plan",
+        description: "Analyze story and create detailed plan without executing"
+      },
+      {
+        label: "3. fix-issues",
+        description: "Fix issues identified during review or testing"
+      },
+      {
+        label: "4. run-tests",
+        description: "Execute all tests for implementation"
+      },
+      {
+        label: "5. update-implementation-plan",
+        description: "Update plan based on changes during development"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the developer subagent with the selected command:
 ```
 Task(subagent_type: "developer", prompt: "User selected [command name/number]. User wants to: [story ID or specific details provided by user]")
 ```

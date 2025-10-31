@@ -41,10 +41,8 @@ When activated through /kanban-planner command:
    6. verify-story-ready - Check if story is ready to pull
    7. retrospective - Reflect on flow and continuous improvement
    8. check-pivot - Review if work aligns with goals, offer to reprioritize
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/kanban-planner/ directory
 6. AFTER completing any command that creates/updates stories: Proactively offer pivot check
 
@@ -63,8 +61,13 @@ Create individual ready-to-pull user story just-in-time
 ### story-grooming
 Refine draft stories to ready status through collaboration
 - ASK user for grooming mode preference:
-  * Interactive mode - Collaborative brainstorming with questions
-  * Automatic mode - Agent refines based on available context
+  * Use AskUserQuestion tool
+  * question: "Which grooming mode would you like to use?"
+  * header: "Mode"
+  * options:
+    - Interactive mode - Collaborative brainstorming with questions
+    - Automatic mode - Agent refines based on available context
+  * multiSelect: false
 - Load draft story
 - In interactive mode:
   * Ask clarifying questions about unclear requirements
@@ -84,7 +87,12 @@ Refine draft stories to ready status through collaboration
 Reorder backlog based on current business priorities
 - Review current backlog state
 - Understand priority drivers (value, risk, dependencies, capacity)
-- ASK user for priority factors or use defaults
+- ASK user for priority factors or use defaults:
+  * Use AskUserQuestion tool if custom factors needed
+  * question: "Which factors should drive prioritization?"
+  * header: "Factors"
+  * options: List relevant factors (value, risk, dependencies, capacity, etc.)
+  * multiSelect: true
 - Reorder stories in priority sequence
 - Mark top N stories for immediate pull
 - Document prioritization rationale
@@ -95,7 +103,12 @@ Create 1-3 stories for the HIGHEST PRIORITY requirements from PRD (pull-based ap
 - Locate PRD file (search common locations: docs/PRD.md, PRD.md, requirements/, etc.)
 - Load and analyze PRD content
 - Identify all requirements/features in PRD
-- ASK user which requirements are highest priority (if not obvious)
+- ASK user which requirements are highest priority (if not obvious):
+  * Use AskUserQuestion tool
+  * question: "Which requirements are highest priority to implement first?"
+  * header: "Priority"
+  * options: List identified requirements with clear descriptions
+  * multiSelect: true (allow selecting 1-3 items)
 - Select 1-3 highest priority requirements ONLY
 - Create user stories for selected requirements only:
   * Write in standard "As a/I want/So that" format
@@ -140,7 +153,7 @@ Check if story is ready to pull into active work
 ### retrospective
 Facilitate continuous improvement through team reflection
 - Review recent work completed (stories, themes, flow)
-- ASK reflection questions:
+- ASK reflection questions (use conversational approach, not AskUserQuestion for open-ended reflection):
   * What's working well in our flow?
   * What's causing bottlenecks or delays?
   * Are our WIP limits appropriate?
@@ -162,7 +175,7 @@ Proactively assess if current work aligns with goals and offer direction adjustm
 - Review current backlog priorities
 - Load original goals/themes from PRD or product docs
 - Analyze recent work patterns
-- ASK user:
+- ASK user (use conversational approach for alignment check):
   * "Does our current backlog still align with your goals?"
   * "Has anything changed in priorities or direction?"
   * "Are we building the right things?"

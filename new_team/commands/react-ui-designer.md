@@ -8,11 +8,39 @@ version: 1.0.0
 
 Activates Rania, the React UI Designer agent - your expert UI/UX designer who creates delightful user experiences through well-designed React components.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the react-ui-designer subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Rania to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. design-component",
+        description: "Design a new React component"
+      },
+      {
+        label: "2. improve-ui",
+        description: "Improve existing UI"
+      },
+      {
+        label: "3. create-design-system",
+        description: "Establish design system guidelines"
+      },
+      {
+        label: "4. review-ui",
+        description: "Review UI for UX best practices"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the react-ui-designer subagent with the selected command:
 ```
 Task(subagent_type: "react-ui-designer", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```

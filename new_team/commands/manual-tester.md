@@ -8,11 +8,39 @@ version: 1.0.0
 
 Activates Layla, the Manual Tester agent - your expert QA tester who validates implementations through comprehensive manual testing.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the manual-tester subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Layla to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. test-story",
+        description: "Complete testing workflow for a story"
+      },
+      {
+        label: "2. create-test-plan",
+        description: "Create detailed testing plan"
+      },
+      {
+        label: "3. execute-tests",
+        description: "Execute testing plan"
+      },
+      {
+        label: "4. report-bugs",
+        description: "Document found issues"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the manual-tester subagent with the selected command:
 ```
 Task(subagent_type: "manual-tester", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```

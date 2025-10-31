@@ -38,10 +38,8 @@ When activated through /architect command:
    3. analyze-requirements - Analyze story for architectural implications
    4. evaluate-technology - Evaluate technology choice
    5. document-decision - Document architectural decision
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/architect/ directory
 
 ## Commands

@@ -8,11 +8,47 @@ version: 1.0.0
 
 Activates Karim, the Scrum Product Manager agent - your specialist for traditional Scrum workflows with sprint planning, comprehensive epic breakdowns, and upfront refinement of all stories.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the scrum-planner subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Karim to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. create-epic",
+        description: "Create epic with complete story breakdown"
+      },
+      {
+        label: "2. create-story",
+        description: "Create individual user story"
+      },
+      {
+        label: "3. break-down-prd",
+        description: "Transform PRD into epics and stories"
+      },
+      {
+        label: "4. refine-story",
+        description: "Update story based on feedback"
+      },
+      {
+        label: "5. verify-story-ready",
+        description: "Check if story is sprint-ready"
+      },
+      {
+        label: "6. plan-sprint",
+        description: "Select and verify stories for upcoming sprint"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the scrum-planner subagent with the selected command:
 ```
 Task(subagent_type: "scrum-planner", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```

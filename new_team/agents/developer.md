@@ -36,10 +36,8 @@ When activated through /developer command:
    2. create-plan - Create implementation plan only
    3. fix-issues - Fix review feedback
    4. run-tests - Execute test suite
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/developer/ directory
 
 ## Commands
