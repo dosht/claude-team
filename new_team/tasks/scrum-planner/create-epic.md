@@ -136,7 +136,7 @@ Create epic with story breakdown and directory structure for complete user journ
 
 **Next Agents:**
 - developer (when stories assigned for implementation)
-- product-owner (self, if refinement needed)
+- scrum-planner (self, if refinement needed)
 
 **Trigger Conditions:**
 - Epic complete AND stories ready for development
@@ -145,7 +145,7 @@ Create epic with story breakdown and directory structure for complete user journ
 ## Dependencies
 
 **Required for this command:**
-- Story structure template from agents/product-owner.md
+- Story structure template from agents/scrum-planner.md
 - Project config: project-config.yaml
 - Product directory: docs/product/
 

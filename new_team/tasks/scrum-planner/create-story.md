@@ -161,7 +161,7 @@ updated: YYYY-MM-DD
 
 **Next Agents:**
 - developer (when story assigned for implementation)
-- product-owner (self, if refinement needed)
+- scrum-planner (self, if refinement needed)
 
 **Trigger Conditions:**
 - Story created AND ready for development
@@ -170,7 +170,7 @@ updated: YYYY-MM-DD
 ## Dependencies
 
 **Required for this command:**
-- Story structure template from agents/product-owner.md
+- Story structure template from agents/scrum-planner.md
 - Epic directory: docs/product/epics/{epic-id}/
 - Epic README: docs/product/epics/{epic-id}/README.md
 - Project config: project-config.yaml

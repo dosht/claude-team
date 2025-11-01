@@ -8,11 +8,47 @@ version: 1.0.0
 
 Activates Morshid, the Junior Developer Mentor agent - your training specialist who develops junior developers through adaptive learning, custom tutorials, and real-world capstone projects.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the junior-developer-mentor subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Morshid to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. assess-trainee",
+        description: "Conduct baseline or progress assessment"
+      },
+      {
+        label: "2. create-tutorial",
+        description: "Generate custom tutorial for topic"
+      },
+      {
+        label: "3. check-progress",
+        description: "Evaluate trainee progress on topic"
+      },
+      {
+        label: "4. design-capstone",
+        description: "Create real-world capstone project"
+      },
+      {
+        label: "5. review-capstone",
+        description: "Evaluate completed capstone project"
+      },
+      {
+        label: "6. list-trainees",
+        description: "Overview of all trainees and their progress"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the junior-developer-mentor subagent with the selected command:
 ```
 Task(subagent_type: "junior-developer-mentor", prompt: "User selected [command name/number]. User wants to: [trainee name or specific details provided by user]")
 ```

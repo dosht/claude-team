@@ -150,7 +150,7 @@ Update story based on feedback, clarification, or changed requirements while mai
 
 **Next Agents:**
 - developer (if story being reimplemented)
-- product-owner (self, if more refinement needed)
+- scrum-planner (self, if more refinement needed)
 
 **Trigger Conditions:**
 - Refinement complete AND story ready
@@ -160,7 +160,7 @@ Update story based on feedback, clarification, or changed requirements while mai
 
 **Required for this command:**
 - Existing story file: docs/product/epics/{epic-id}/{story-id}.md
-- Story structure template from agents/product-owner.md
+- Story structure template from agents/scrum-planner.md
 - Epic README: docs/product/epics/{epic-id}/README.md
 
 **Optional:**

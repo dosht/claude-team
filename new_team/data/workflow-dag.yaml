@@ -8,12 +8,21 @@ meta:
 
 # Node definitions - each agent in the workflow
 nodes:
-  product-owner:
-    agent-id: "product-owner"
-    role: "Creates and refines user stories"
+  scrum-planner:
+    agent-id: "scrum-planner"
+    role: "Creates sprint-ready epics and stories (Scrum)"
     outputs:
       - "story-file"
       - "epic-structure"
+      - "sprint-backlog"
+
+  kanban-planner:
+    agent-id: "kanban-planner"
+    role: "Creates just-in-time stories and themes (Kanban)"
+    outputs:
+      - "story-file"
+      - "epic-theme"
+      - "prioritized-backlog"
     
   developer:
     agent-id: "developer"
@@ -63,12 +72,19 @@ nodes:
 
 # Edge definitions - how agents hand off to each other
 edges:
-  # Story creation to implementation
-  - from: "product-owner"
+  # Story creation to implementation (Scrum path)
+  - from: "scrum-planner"
     to: "developer"
     data: "story-file"
     trigger: "human-assigns-story"
-    description: "Product Owner hands story to Developer"
+    description: "Scrum Planner hands sprint-ready story to Developer"
+
+  # Story creation to implementation (Kanban path)
+  - from: "kanban-planner"
+    to: "developer"
+    data: "story-file"
+    trigger: "human-assigns-story"
+    description: "Kanban Planner hands ready-to-pull story to Developer"
     
   # Developer creates plan, waits for approval
   - from: "developer"
@@ -161,11 +177,17 @@ edges:
 
 # Optional: UI design workflow
 ui-workflow:
-  - from: "product-owner"
+  - from: "scrum-planner"
     to: "react-ui-designer"
     data: "story-file"
     trigger: "if-ui-required"
-    description: "Product Owner hands UI stories to React UI Designer"
+    description: "Scrum Planner hands UI stories to React UI Designer"
+
+  - from: "kanban-planner"
+    to: "react-ui-designer"
+    data: "story-file"
+    trigger: "if-ui-required"
+    description: "Kanban Planner hands UI stories to React UI Designer"
     
   - from: "react-ui-designer"
     to: "developer"
@@ -299,16 +321,28 @@ training-workflow:
 
   # Capstone project workflow
   - from: "junior-developer-mentor"
-    to: "product-owner"
+    to: "scrum-planner"
     data: "capstone-requirements-request"
     trigger: "if-realistic-story-format-needed"
     description: "Mentor requests user story format for capstone (design-capstone)"
 
-  - from: "product-owner"
+  - from: "junior-developer-mentor"
+    to: "kanban-planner"
+    data: "capstone-requirements-request"
+    trigger: "if-realistic-story-format-needed"
+    description: "Mentor requests user story format for capstone (design-capstone)"
+
+  - from: "scrum-planner"
     to: "junior-developer-mentor"
     data: "user-story-format"
     trigger: "auto"
-    description: "Product Owner provides story format guidance"
+    description: "Scrum Planner provides story format guidance"
+
+  - from: "kanban-planner"
+    to: "junior-developer-mentor"
+    data: "user-story-format"
+    trigger: "auto"
+    description: "Kanban Planner provides story format guidance"
 
   - from: "junior-developer-mentor"
     to: "trainee"
@@ -497,7 +531,8 @@ parallel-groups:
 # Workflow visualization (Mermaid format)
 visualization: |
   graph TD
-    PO[Product Owner] -->|story| DEV[Developer]
+    SP[Scrum Planner] -->|sprint-ready story| DEV[Developer]
+    KP[Kanban Planner] -->|ready-to-pull story| DEV
     DEV -->|plan| HUMAN{Human Approval}
     HUMAN -->|approved| DEV
     DEV -->|implementation| TL[Tech Lead]
@@ -511,8 +546,9 @@ visualization: |
     TEST -->|passed| HUMAN_VAL{Human Validation}
     HUMAN_VAL -->|approved| DONE[Story Complete]
     DONE -->|update| EPIC[Epic Progress]
-    
-    style PO fill:#ffd700
+
+    style SP fill:#ffd700
+    style KP fill:#ffd700
     style DEV fill:#90ee90
     style TL fill:#87ceeb
     style ARCH fill:#dda0dd

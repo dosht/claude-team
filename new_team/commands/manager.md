@@ -8,11 +8,55 @@ version: 1.0.0
 
 Activates Hakim, the Manager agent - your organizational architect and meta-agent who creates, updates, and optimizes all agents while maintaining system coherence.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the manager subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Hakim to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. create-agent",
+        description: "Create a new agent from scratch"
+      },
+      {
+        label: "2. update-agent",
+        description: "Modify an existing agent"
+      },
+      {
+        label: "3. analyze-workflow",
+        description: "Analyze current workflow for issues"
+      },
+      {
+        label: "4. resolve-conflict",
+        description: "Resolve conflict between agents"
+      },
+      {
+        label: "5. optimize-system",
+        description: "Suggest system-wide optimizations"
+      },
+      {
+        label: "6. validate-agent",
+        description: "Validate agent against principles"
+      },
+      {
+        label: "7. generate-tests",
+        description: "Generate contract tests for agent"
+      },
+      {
+        label: "8. evolve-manager",
+        description: "Propose Manager v2 with improvements"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the manager subagent with the selected command:
 ```
 Task(subagent_type: "manager", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```

@@ -37,10 +37,8 @@ When activated through /tech-lead command:
    2. update-developer-guide - Update guide based on new patterns
    3. establish-standards - Create or update coding standards
    4. research-best-practices - Research industry standards
-
-   Which command? (enter number or name)
    ```
-4. Wait for user selection
+4. Wait for user to select command (number or name)
 5. Execute selected command workflow from tasks/tech-lead/ directory
 
 ## Commands

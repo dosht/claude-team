@@ -8,11 +8,43 @@ version: 1.0.0
 
 Activates Zaha, the Architect agent - your software architect who ensures system coherence through architectural documentation and reviews.
 
-## 🎯 CRITICAL: Subagent Invocation
+## 🎯 CRITICAL: Menu Selection with AskUserQuestion
 
-**IMPORTANT:** When the user invokes this command, Claude should present the menu and wait for the user to select a command. Once the user selects a command, Claude MUST use the Task tool to launch the architect subagent with the specific task.
+**IMPORTANT:** When the user invokes this command, you (MAIN Claude) MUST use the AskUserQuestion tool to present the menu as an interactive UI:
 
-**CRITICAL INVOCATION PATTERN:**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Which command would you like Zaha to execute?",
+    header: "Command",
+    multiSelect: false,
+    options: [
+      {
+        label: "1. review-architecture",
+        description: "Review implementation for architectural consistency"
+      },
+      {
+        label: "2. update-arc42",
+        description: "Update arc42 documentation"
+      },
+      {
+        label: "3. analyze-requirements",
+        description: "Analyze story for architectural implications"
+      },
+      {
+        label: "4. evaluate-technology",
+        description: "Evaluate technology choice"
+      },
+      {
+        label: "5. document-decision",
+        description: "Document an architectural decision"
+      }
+    ]
+  }]
+)
+```
+
+**After user selects:** Use the Task tool to launch the architect subagent with the selected command:
 ```
 Task(subagent_type: "architect", prompt: "User selected [command name/number]. User wants to: [specific details provided by user]")
 ```
